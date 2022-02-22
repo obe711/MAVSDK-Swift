@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package mavsdk.rpc.mavlink_passthrough;
+
+import "mavsdk_options.proto";
+
+option java_package = "io.mavsdk.mavlink_passthrough";
+option java_outer_classname = "MavlinkPassthroughProto";
+
+service MavlinkPassthrough {
+  /*
+   * Send command long drone.
+   *
+   * Arming a drone normally causes motors to spin at idle.
+   * Before arming take all safety precautions and stand clear of the drone!
+   */
+  rpc SendCommandLong(SendCommandLongRequest) returns(SendCommandLongResponse) {}
+  
+}
+
+message SendCommandLongRequest {
+  uint32 target_sysid = 1; /**< @brief System ID to send command to */
+  uint32 target_compid = 2; /**< @brief Component ID to send command to */
+  uint32 command = 3; /**< @brief command to send. */
+  float param1 = 4; /**< @brief param1. */
+  float param2 = 5; /**< @brief param2. */
+  float param3 = 6; /**< @brief param3. */
+  float param4 = 7; /**< @brief param4. */
+  float param5 = 8; /**< @brief param5. */
+  float param6 = 9; /**< @brief param6. */
+  float param7 = 10; /**< @brief param7. */
+}
+message SendCommandLongResponse {
+  MavlinkPassthroughResult mavlink_passthrough_result = 1;
+}
+
+
+// Result type.
+message MavlinkPassthroughResult {
+  // Possible results returned for action requests.
+  enum Result {
+      RESULT_UNKNOWN = 0; // Unknown result
+      RESULT_SUCCESS = 1; // Request was successful
+      RESULT_CONNECTION_ERROR = 2; // Connection error
+      RESULT_COMMAND_NO_SYSTEM = 3; // No system is connected
+      RESULT_COMMAND_BUSY = 4; // Vehicle is busy
+      RESULT_COMMAND_DENIED = 5; // Command refused by vehicle
+      RESULT_COMMAND_UNSUPPORTED = 6;
+      RESULT_COMMAND_TIMEOUT = 7; // Request timed out
+  }
+
+  Result result = 1; // Result enum value
+  string result_str = 2; // Human-readable English string describing the result
+}
