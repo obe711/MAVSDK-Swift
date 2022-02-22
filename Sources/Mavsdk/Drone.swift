@@ -17,6 +17,7 @@ public class Drone {
     public var info: Info!
     public var logFiles: LogFiles!
     public var manualControl: ManualControl!
+    public var mavlinkPassthrough: MavlinkPassthrough!
     public var mission: Mission!
     public var missionRaw: MissionRaw!
     public var mocap: Mocap!
@@ -69,6 +70,7 @@ public class Drone {
         self.info = Info(address: address, port: port, scheduler: scheduler)
         self.logFiles = LogFiles(address: address, port: port, scheduler: scheduler)
         self.manualControl = ManualControl(address: address, port: port, scheduler: scheduler)
+        self.mavlinkPassthrough = MavlinkPassthrough(address: address, port: port, scheduler: scheduler)
         self.mission = Mission(address: address, port: port, scheduler: scheduler)
         self.missionRaw = MissionRaw(address: address, port: port, scheduler: scheduler)
         self.mocap = Mocap(address: address, port: port, scheduler: scheduler)
